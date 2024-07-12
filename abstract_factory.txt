@@ -1,0 +1,22 @@
+Abstract Factory :
+
+Abstract factory is a creational design pattern that produces sets of related objects. In its simplest form, it could be a set of factories that allows you to produce parts of object set.
+This is a solution for situations when you need to create a group of related objects which may be modified to some extent.
+
+interface ElectronicsCompany is
+  method createDevice(): Device
+  method createMobDevice(): MobDevice
+This interface declares methods that will return different products. Here we have methods that define creation for two sets of products: Laptops and Phones. Now we will define our factories:
+class LaptopFactory implements ElectronicsCompany is
+  method createDevice(): Device is
+    return new Laptop()
+
+  method createMobDevice(): MobDevice is
+    return new GamingLaptop()
+    
+class PhoneFactory implements ElectronicsCompany is
+  method createDevice(): Device is
+    return new Phone()
+
+  method createMobDevice(): MobDevice is
+    return new SmartPhone()

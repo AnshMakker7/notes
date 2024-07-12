@@ -1,0 +1,121 @@
+Test Lifecycle Annotations :
+
+
+Test class instance lifecycle
+
+First, let's talk about how JUnit5 executes our tests. It creates a new instance of the test class before executing each test method. This way it ensures execution of individual test methods in isolation to avoid possible side effects produced by any changes of state of the test class instance.
+
+@TestInstance annotation controls the test class instance lifecycle. It is set to TestInstance.Lifecycle.PER_METHOD by default but can be changed if necessary.
+
+Example :
+
+import org.junit.jupiter.api.*;
+
+public class LifeCycleTest {
+
+    LifeCycleTest() {
+        System.out.println("Test Class Constructor");
+    }
+
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("Before the test fixture");
+    }
+
+    @AfterAll
+    static void afterAll() {
+        System.out.println("After the test fixture");
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        System.out.println("Before each test");
+    }
+
+    @AfterEach
+    void afterEach() {
+        System.out.println("After each test");
+    }
+
+    @Test
+    void test1() {
+        System.out.println("Test 1");
+    }
+
+    @Test
+    void test2() {
+        System.out.println("Test 2");
+    }
+}
+
+A test fixture is a fixed state of objects intended to provide a known and fixed environment for running tests.
+
+Note that the methods annotated with @BeforeAll and @AfterAll are static, because this way they can be shared among new test class instances created for each test method.
+
+Running the tests gives the following output:
+
+Before the test fixture
+Test Class Constructor
+Before each test
+Test 1
+After each test
+Test Class Constructor
+Before each test
+Test 2
+After each test
+After the test fixture
+
+
+https://ucarecdn.com/2e127439-b117-4112-a576-d61a5e649e93/
+
+Example 2 :
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserTest {
+
+    static String[] names;
+    static String[] passwords;
+    static boolean[] expectedOutcomes;
+
+    static int index = 0;
+
+    User user;
+    boolean expected;
+
+    @BeforeAll
+    static void setUp() {
+        names = new String[] {"Alice", "Alice", "Alice", "", null, "    "};
+        passwords = new String[] {"12345678", "123", null, "12345678", "12345678", "12345678"};
+        expectedOutcomes = new boolean[] {true, false, false, false, false, false};
+    }
+
+    @BeforeEach
+    void createUser() {
+        user = new User(names[index], passwords[index]);
+        expected = expectedOutcomes[index];
+    }
+
+    @AfterEach
+    void incrementIndex() {
+        index++;
+    }
+
+    @RepeatedTest(value = 6, name = "user.isValid() test {currentRepetition}/{totalRepetitions}")
+    void isValid() {
+        assertEquals(expected, user.isValid());
+    }
+}
+
+Here we used @RepeatedTest to run the annotated test 6 times (value = 6) and defined a custom name for displaying test results. {currentRepetition} and {totalRepetitions} are placeholders for displaying the current run and the total number of test runs. 
+
+Here is the output:
+
+UserTest > user.isValid() test 1/6 PASSED
+UserTest > user.isValid() test 2/6 PASSED
+UserTest > user.isValid() test 3/6 PASSED
+UserTest > user.isValid() test 4/6 PASSED
+UserTest > user.isValid() test 5/6 PASSED
+UserTest > user.isValid() test 6/6 PASSED

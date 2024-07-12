@@ -1,0 +1,90 @@
+Optional
+
+Every Java Programmer is familiar with NullPointerException. It can crash your code. And it is very hard to avoid it without using too many null checks. So, to overcome this, Java 8 has introduced a new class Optional in java.util package.
+
+Optional is a container object which may or may not contain a non-null value. You must import java.util package to use this class. If a value is present, isPresent() will return true and get() will return the value. Additional methods that depend on the presence or absence of a contained value are provided, such as orElse() which returns a default value if the value is not present, and ifPresent() which executes a block of code if the value is present. This is a value-based class, i.e their instances are : 
+* Final and immutable (though may contain references to mutable objects).
+* Considered equal solely based on equals(), not based on reference equality(==).
+* Do not have accessible constructors.
+
+
+
+
+Instance Methods can be called within the same class in which they reside or from the different classes defined either in the same package or other packages depending on the access type provided to the desired instance method. Below given are some important points regarding Instance Methods : 
+* Instance method(s) belong to the Object of the class, not to the class i.e. they can be called after creating the Object of the class.
+* Every individual object created from the class has its own copy of the instance method(s) of that class.
+* They can be overridden since they are resolved using dynamic binding at run time.
+
+
+
+
+
+ofNullable()
+
+The ofNullable() method of java.util.Optional class in Java is used to get an instance of this Optional class with the specified value of the specified type. If the specified value is null, then this method returns an empty instance of the Optional class.
+
+Syntax:
+
+public static <T>
+  Optional<T> ofNullable(T value)
+
+
+The ifPresentOrElse(Consumer, Runnable) method of java.util.Optional class helps us to perform the specified Consumer action the value of this Optional object. If a value is not present in this Optional, then this method performs the given empty-based Runnable emptyAction, passed as the second parameter
+Syntax:
+
+public void ifPresentOrElse(Consumer<T> action,
+                            Runnable emptyAction)
+
+Parameters: This method accepts two parameters:
+* action: which is the action to be performed on this Optional, if a value is present.
+* emptyAction: which is the empty-based action to be performed, if no value is present.
+
+
+The orElseGet() method of java.util.Optional class in Java is used to get the value of this Optional instance if present. If there is no value present in this Optional instance, then this method returns the value generated from the specified supplier.
+Syntax:
+
+public T orElseGet(Supplier<T> supplier)
+Parameters: This method accepts supplier as a parameter of type T to generate a value to return if there is no value present in this Optional instance.
+Return supplier: This method returns the value of this Optional instance, if present. If there is no value present in this Optional instance, then this method returns the value generated from the specified supplier.
+
+
+
+
+The filter() method of java.util.Optional class in Java is used to filter the value of this Optional instance by matching it with the given Predicate, and then return the filtered Optional instance. If there is no value present in this Optional instance, then this method returns an empty Optional instance.
+
+Syntax:
+
+public Optional<T> 
+  filter(Predicale<T> predicate)
+Parameters: This method accepts predicate as parameter of type Predicate to filter an Optional instance with this.
+Return value: This method returns the filtered Optional instance. If there is no value present in this Optional instance, then this method returns an empty Optional instance.
+
+Exception: This method throws NullPointerException if the specified predicate is null.
+
+
+
+
+The empty() method of java.util.Optional class in Java is used to get an empty instance of this Optional class. This instance do not contain any value.
+Syntax:
+
+public static <T> 
+  Optional<T> empty()
+Parameters: This method accepts nothing.
+Return value: This method returns an empty instance of this Optional class.
+
+
+
+The hashCode() method of java.util.Optional class in Java is used to get the hashCode value of this Optional instance. If there is no value present in this Optional instance, then this method returns 0.
+Syntax:
+
+public int hashCode()
+
+
+
+The equals() method of java.util.Optional class in Java is used to check for equality of this Optional with the specified Optional. This method takes an Optional instance and compares it with this Optional and returns a boolean value representing the same.
+Syntax:
+
+public boolean equals(Object obj)
+Parameter: This method accepts a parameter obj which is the Optional to be checked for equality with this Optional.
+Return Value: This method returns a boolean which tells if this Optional is equal to the specified Object.
+Sent Mail - amakker@griddynamics.com - Grid Dynamics Mail

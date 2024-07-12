@@ -1,0 +1,11 @@
+Divide and Conquer :
+
+Divide and conquer is an algorithm design paradigm, in which we divide a problem into smaller subproblems (often two subproblems) of the same type and then solve each subproblem independently.
+
+The steps of a divide-and-conquer-based algorithm
+
+A typical algorithm based on the divide and conquer paradigm consists of three steps:
+
+1. Divide: split a problem into smaller sub-problems of the same type. Each sub-problem should represent a part of the original problem.
+2. Conquer: recursively solve the sub-problems. If they are simple enough, solve them directly using base case conditions.
+3. Combine: unite the solutions of the sub-problems to get the solution for the original problem.

@@ -1,0 +1,25 @@
+Facade Pattern :
+
+The facade design pattern is a structural design pattern that provides the client with an interface for accessing parts of the system which could be hidden to avoid showing the complexity of the code. Basically, a facade can be applied, when you are working with a complex set of objects, which you do not want to track.
+
+The players' actions will be executed through a class called Game that represents our facade:
+
+class Game is
+  method walk() is
+    ...
+    return new Render()
+
+  method jump() is
+    ...
+    return new Calculate()
+
+  method startGame() is
+    ...
+    return new Load()
+
+Facade implementation
+Facade implementation in the client code will look pretty boring:
+Game game = new Game()
+game.startGame()
+game.walk()
+game.jump()

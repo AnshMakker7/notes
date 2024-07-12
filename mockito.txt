@@ -1,0 +1,57 @@
+Mockito :
+
+You are already familiar with unit tests and their main characteristics: they are small, fast, and we use them to test a unit of code in isolation. However, sometimes it is not easy to comply with these criteria, especially if your code unit under test depends on external resources, such as files, databases, or web services. There are several techniques that help you isolate a unit of code from its dependencies, and one of them is the use of so-called mock objects.
+
+If you have a Maven project, add the following dependencies:
+
+<dependencies>
+    <dependency>
+<!--        JUnit5 -->
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.7.1</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+<!--        Mockito -->
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>3.11.2</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+
+Let's set up unit tests for our FXConverter class. There are two ways to instantiate a mock object of the RemoteFXRateService class. The first one is with the use of mock, a static method that creates a default mock of the specified class.
+
+import static org.mockito.Mockito.mock;
+
+class FXConverterTest {
+
+    private RemoteFXRateService service = mock(RemoteFXRateService.class);
+
+    private FXConverter converter = new FXConverter(service);
+
+}
+
+OR
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class FXConverterTest {
+
+    @Mock
+    private RemoteFXRateService service;
+
+    private FXConverter converter;
+
+    @BeforeEach
+    void setup() {
+        converter = new FXConverter(service);
+    }
+}

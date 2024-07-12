@@ -1,0 +1,39 @@
+Decorator Pattern :
+
+The pattern that we will discuss in this topic is no different. This design pattern allows you to add new functions to objects, excluding changes to them. It's called the decorator design pattern.
+
+A decorator is a structural design pattern that allows using special wrappers for objects, giving them new functionality while avoiding changes to their structure. This approach simplifies the coding process by delegating the implementation of new functions to other classes, instead of rewriting new object classes. So you can say that the main idea of this pattern is focused around wrapper objects. But what is a wrapper?
+
+A wrapper (or decorator) is an object that works with your initial object in a way that alters its behavior. Wrapper shares the same interface and functions with that object. But, in case the user needs to call the initial object, the wrapper will pass the user's request through itself. In this process, the result can be adapted.
+
+Using this pattern, we need to introduce these elements:
+* an interface that represents methods for basic pizza making;
+* a class that creates our pizza;
+* one base wrapper which will store our pizza object to combine it with our topping wrappers;
+* for this particular example, we'll have two wrappers for pizza toppings.
+
+interface Pizza is
+  method cook()
+Here, we described all common methods for both our pizza maker and pizza wrapper. Next, we'll describe them as PlainPizza class and ToppingWrapper:
+class PlainPizza implements Pizza is
+  method cook() is
+    return "Pizza"
+
+
+class ToppingWrapper implements Pizza is
+  field pizza: Pizza
+
+  constructor ToppingWrapper(Pizza pizza)
+    this.pizza = pizza
+
+  method cook() is
+    pizza.cook()
+Both these classes will implement the Pizza interface. Our PlainPizza will return an object that represents a simple pizza that will be referenced within the ToppingWrapper class and then combined with our other wrappers.
+Next, we'll define our Pepperoni and HotPepper wrappers:
+class Pepperoni extends ToppingWrapper is
+  method cook() is
+    return pizza.cook() + " Pepperoni"
+
+class HotPepper extends ToppingWrapper is
+  method cook() is
+    return pizza.cook() + " HotPepper"

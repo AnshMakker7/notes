@@ -1,0 +1,103 @@
+Kryo :
+
+Kryo is a fast and efficient binary object graph serialization framework for Java. It is designed to be simple to use and highly configurable, with a small memory footprint.The Kryo framework can serialize and deserialize objects from the standard Java library, including collections and enums, as well as objects not part of the standard library but registered with the framework.
+
+Kryo is often used in applications where performance and memory usage are critical, such as in video games, data processing pipelines, or distributed systems. Such performance and efficiency can be achieved due to the fact that Kryo serializes data in binary format and has internal optimizations, including object caching and field registration.
+
+Disadvantages :
+
+- [ ] Another downside is that Kryo is not thread-safe, because it uses internal data structures and caches that are not protected against concurrent access. 
+- [ ] Creating a new instance of Kryo can be relatively expensive, as it requires allocating memory and initializing various internal data structures, such as a cache for storing information about previously serialized classes, which is populated by scanning the class path and analyzing the fields and properties of available classes.
+- [ ] 
+Dependancy for KRYO :
+
+<dependency>
+    <groupId>com.esotericsoftware</groupId>
+    <artifactId>kryo</artifactId>
+    <version>5.4.0</version>
+</dependency>
+
+Example :
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // Create a new instance of Kryo
+        Kryo kryo = new Kryo();
+
+        // All classes that Kryo will read or write must be registered beforehand
+        kryo.register(City.class);
+        kryo.register(Country.class);
+
+        // Create a new instance of custom class
+        City city = new City("Berlin", new Country("Germany", "Eurasia"));
+
+        //try-with-resources
+        try (Output output = new Output(new FileOutputStream("data.bin"))) {
+            // Serialize the object to a file
+            kryo.writeObject(output, city);
+            // Object in array of byte
+            byte[] bytes = output.toBytes();
+            // Print the object byte array
+            System.out.println("Byte array: " + Arrays.toString(bytes));
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+        //try-with-resources
+        try (Input input = new Input(new FileInputStream("data.bin"))) {
+            // Deserialize the object from the file
+            City city2 = kryo.readObject(input, City.class);
+            // Show object after deserialization
+            System.out.println("Object after deserialization: " + city2);
+            // Show that serialized object is the same after deserialization
+            System.out.println("Are objects equal before and after serialization: "
+                    + city.equals(city2));
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading from the file: " + e.getMessage());
+        }
+    }
+
+Output :
+
+Byte array: [66, 101, 114, 108, 105, -18, 12, 69, 117, 114, 97, 115, 105, -31, 71, 101, 114, 109, 97, 110, -7]
+Object after deserialization: Berlin is in Germany(Eurasia)
+Are objects equal before and after serialization: true
+
+Class registration
+
+As you can see in the example above, we called the register(City.class) and register(Country.class) methods. Kryo uses class registration to keep track of the classes that have been serialized and deserialized and to improve performance by reusing previously registered class information. Kryo uses the unique ID assigned to the class during registration to identify the class when reading the serialized data.
+If you try to serialize an object of a class that is not registered with Kryo, the serialization process will fail. Kryo will not be able to generate a unique ID for the class or store information about the class's fields and properties. When trying to serialize the object, the program will throw the java.lang.IllegalArgumentException.
+However, there is a method setRegistrationRequired(false) that allows disabling registration:
+public class Main {
+    public static void main(String[] args){
+        Kryo kryo = new Kryo();
+
+        // Disable registration
+        kryo.setRegistrationRequired(false);
+
+        City city = new City("Berlin", new Country("Germany", "Eurasia"));
+        try (Output output = new Output(new FileOutputStream("data.bin"))) {
+            kryo.writeObject(output, city);
+            byte[] bytes = output.toBytes();
+            System.out.println("Byte array: " + Arrays.toString(bytes));
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+
+        // Show unregistered classes ID
+        System.out.println("City class ID to identify an object's class when serializing it : "
+                + kryo.getRegistration(City.class).getId());
+        System.out.println("Country class ID to identify an object's class when serializing it : "
+                + kryo.getRegistration(Country.class).getId());
+    }
+}
+Output:
+Byte array: [66, 101, 114, 108, 105, -18, 1, 0, 111, 114, 103, 46, 101, 120, 97, 109, 112, 108, 
+101, 46, 67, 111, 117, 110, 116, 114, -7, 69, 117, 114, 97, 115, 105, -31, 71, 101, 114, 109, 
+97, 110, -7]
+City class ID to identify an object's class when serializing it : -1
+Country class ID to identify an object's class when serializing it : -1
+Output if we registered the Country and City classes:
+Byte array: [66, 101, 114, 108, 105, -18, 12, 69, 117, 114, 97, 115, 105, -31, 71, 101, 114, 109,
+97, 110, -7]
+City class ID to identify an object's class when serializing it : 9
+Country class ID to identify an object's class when serializing it : 10

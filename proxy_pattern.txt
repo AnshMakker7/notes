@@ -1,0 +1,50 @@
+Proxy Pattern :
+
+While writing code, you may have been using something that is called a service object. A service object is a part of code that works in response to requests from other objects.
+
+Proxy pattern
+
+Proxy is a structural design pattern that allows you to provide some service with an intermediate object that controls access to that service. This intermediate object is known as a proxy; the same as the pattern.
+
+You can describe a proxy as a gate that performs some actions before a request from a client can access your service. It is unlike the decorator pattern in which objects are provided with an enhanced interface or an adapter, where you change the interface altogether.
+
+https://ucarecdn.com/cc671a31-fb23-44aa-b4b8-ed78f70284a5/
+
+
+A proxy that provides you with lazy initialization is called a virtual proxy. But it isn't the only type of proxy there is.
+There are a few popular proxy types that perform specific operations:
+* Protection proxy – when you need to control which clients can access your service;
+* Cache proxy – allows you to store results of service work to pass it on to future requests;
+* Logging proxy – keeps the log of client requests;
+* Remote proxy – passes object via a network connection to a remote service;
+* Smart proxy – performs additional actions when accessing service. As an example, counting the number of references to a service object, so that the service can be freed when there are no more references.
+
+
+Pseudocode for proxy
+
+First things first, you need to define the InternetAccess interface where you will have methods for other classes.
+interface InternetAccess is
+  method grantAccess(id: Int)
+Now, let's define internet access classes. Let's start with the service class:
+class RealInternetAccess implements InternetAccess is
+  constructor of RealInternetAccess() is
+    ...
+
+  method grantAccess(id: Int) is
+    ...
+In RealInternetAccess there is a method that does most of the work which is providing clients with access to the internet. Now, it's proxy time:
+class ProxyInternetAccess implements InternetAccess is
+  constructor of ProxyInternetAccess ()
+    ...
+
+  method getClearance(id: Int) is
+    ...
+    return clearance
+
+  method grantAccess(id: Int) is
+    Boolean clearance = getClearance(id)
+    if (clearance == true) then
+      InternetAccess service = new RealInternetAccess()
+      service.grantAccess(id)
+    else
+      print("Internet access denied!")

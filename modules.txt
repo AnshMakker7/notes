@@ -1,0 +1,37 @@
+Modules :
+
+Packages vs Modules :
+
+Two additional points to keep in mind about Java packages (we will see how they are relevant in the following sections):
+
+* Packages cannot be deployed by themselves. They contain the source code of an application, but the application still requires the JRE to run it.
+* Classes in a package can be accessed via reflection, even if the classes were declared private.
+
+As for Java modules, it is helpful to think of them as large boxes that you put packages into. If the packages are similar or if they logically belong together because they contribute to one functionality, they can be bundled together into a Java module. 
+
+
+Application size
+
+Because the Java Platform API is now broken down into modules, your application only needs to include the class files from the modules of the API you used. This has the lovely side effect of shrinking your compiled program file size, making it much easier to use Java programs on resource-limited computers (embedded systems, mobile devices, RaspberryPi, etc.).
+
+
+Dependency management
+
+Java modules must contain a Module Descriptor file, which is titled module-info.java. While it contains some obvious data, like the module's name, the services it offers, and the services it consumes, it also specifies a few more targeted pieces of information. Oracle summarizes them as such:
+* the module’s dependencies (that is, other modules this module depends on);
+* the packages it explicitly makes available to other modules (all other packages in the module are implicitly unavailable to other modules);
+* to what other modules it allows reflection.
+
+module com.myCompany.myModuleName {
+    requires javafx.graphics;
+}
+
+If we want to make parts of our module available for other modules to use, we must explicitly do so using the exports keyword.
+
+module com.myCompany.myModuleName {
+    exports com.myCompany.myModuleName;
+}
+
+
+
+

@@ -1,0 +1,39 @@
+Pattern and Matcher :
+
+Matching a regex
+
+Suppose we have a text stored in a string variable:
+String text = "We use Java to write modern applications";
+We want to use a regular expression to check whether the text contains substrings "Java" or "java". We can carry this out in three simple steps with thePattern and Matcher classes.
+1. Create an object of the Pattern class by passing a regex string to the compile method:
+
+Pattern pattern = Pattern.compile(".*[Jj]ava.*"); // regex to match "java" or "Java" in a text
+
+2. Create a Matcher by invoking the matcher method of the Pattern and creating an object for the given string:
+
+Matcher matcher = pattern.matcher(text); // it will match the passed text
+
+3. Invoke the matches method of the matcher to match the string:
+
+boolean matches = matcher.matches(); // true
+
+The method matches of a Matcher works exactly the same way as the method matches of the String, with which we are already familiar.
+
+
+Advantages of Pattern and Matcher classes
+
+* Performance. Actually, the matches method of the String internally invokes the matches method of the Matcher, but it also invokes Pattern.compile(...) every time it is executed. That's not efficient. If the same pattern is used multiple times, compiling it once will be more reasonable.
+* Rich API. The Matcher class has more to offer than a single matches method: there are a lot of useful methods to process strings and a Pattern provides us with the opportunity to configure it in detail, for example, enabling case-insensitive matching.
+
+
+
+String javaText = "Java supports regular expressions. LET'S USE JAVA!!!";
+
+Pattern javaPattern = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
+Matcher matcher = javaPattern.matcher(javaText);
+
+System.out.println(matcher.find()); // prints "true"
+When find() method returns true it is possible to get some info about the substring matching the pattern. start() and end() return the starting and the last indices of the match respectively, while group() returns the matching substring itself.
+System.out.println(matcher.start()); // 0, the starting index of match
+System.out.println(matcher.end());   // 4, the index following the last index of match
+System.out.println(matcher.group()); // "Java", a substring that matches the pattern

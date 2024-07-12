@@ -1,0 +1,3 @@
+Open/Closed Principle :
+
+The famous open/closed principle (OCP) states that a component should be open for extension but closed for modification.

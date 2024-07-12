@@ -1,0 +1,19 @@
+Libraries :
+
+What is a library?
+
+A programming library is a collection of reusable and redistributable code that has a well-defined interface to use.
+A library provides you with high-level functions and methods. We can expect that a library has documentation to get familiar with the behavior of the inner implementation. You should treat a library as a black box: you have the documentation of its interface, but you don't need to know an implementation. Just like programming languages isolate you from working with machine code, libraries isolate you from working with low-level operations.
+
+A third-party library is a collection of high-level modules, apart from the standard library of a programming language. Those libraries are often open source.
+
+
+
+Why use a library?
+
+Let's suppose that a library for your problem exists. We cannot cover all the cases, but we can give you several reasons to use it:
+
+* It reduces the time to develop an end product. We can focus on implementing the logic of the application, not on making auxiliary software.
+* The development of a library is community-driven. It means many people support a library, and you can join them if a library is open source, if you want.
+* If a library is popular, many companies and programmers use it. It means that the library has been tested and utilized by different people, and a new developer in your team will likely know this library too.
+* Libraries have documentation. You can just read a tutorial and start using a library without learning about the inner implementation.

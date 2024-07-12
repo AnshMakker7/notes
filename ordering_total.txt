@@ -1,0 +1,28 @@
+Ordering and total Order :
+
+Total Order :
+
+We say that the sequence has a total order with the relation less or equal when for each a,b,c from this sequence the following statements are true:
+
+1. a<=b and b<=a then a=b
+2. a<=b and b<=c then a<=c
+3. a<=b or b<=a
+
+To compare Strings :
+
+To compare two strings for the less or equal relation, do it step by step:
+
+1. Compare each word letter by letter from the first position. When two letters in the same position differ, the order of words matches the order of these letters: cord < core.
+2. When there are no letters left in one of the words, that word is always less than or equal to the other one, so ball < ballet.
+
+Chronological order
+
+Can you tell what day was earlier: 1969-06-20 or 1965-03-18? The order of dates is straightforward as we compare them by year, then by month, and finally by day. When we meet the first difference, we can identify which date is less.
+
+Almost nothing changes when you add time to date. You compare two timestamps step by step:
+* by year
+* by month
+* by day
+* by hour
+* by minute
+* by second

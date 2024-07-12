@@ -1,0 +1,11 @@
+Logback :
+
+Logging request levels typically involve categorizing requests based on their importance, urgency, or severity. Here's a common set of request levels used in logging systems:
+* DEBUG: Used for detailed information, typically useful only for debugging purposes. These messages are usually very fine-grained and may contain sensitive information.
+* INFO: General information messages that highlight the progress of the application at a high level. This level is often used to log key events or milestones.
+* WARN: Indicates a potential issue or warning that may require attention but does not necessarily indicate a problem. These messages are used to alert developers or administrators about something that might be problematic in the future.
+* ERROR: Indicates an error that occurred during the execution of the application. These messages are typically used to log exceptions or unexpected behaviors that need investigation.
+* FATAL: Indicates a critical error or system failure that prevents the application from continuing its normal operation. Fatal messages are typically reserved for severe errors that require immediate attention.
+* TRACE: Provides the most detailed level of logging, often used to trace the flow of execution through the application. These messages can be very verbose and are typically used for diagnosing complex issues.
+* OFF: Disables logging entirely. No messages are logged at this level.
+* ALL: Enables logging of all messages, regardless of their level. This level is typically not used in practice, as it logs everything, including debug messages.

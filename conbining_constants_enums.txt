@@ -1,0 +1,50 @@
+Combining constants with enums :
+
+Why use enums?
+
+When a variable can only take one out of a small set of possible values, it's a good idea to use enums in a program.
+When we store a bunch of constants in one place and handle them together, it helps us to avoid errors, and it makes the code look more readable and clear.
+
+Defining an enum
+
+We can create our own enumeration in a way that is similar to declaring classes. According to the Java Code Convention, constants in an enum are written in uppercase letters. All constants should be separated with commas. Take a look at the example enum Season:
+
+public enum Season {
+    SPRING, SUMMER, AUTUMN, WINTER // four instances
+}
+
+Note:
+
+It is possible to declare an enum inside a class. In this case, we don't need to use public modifier in the enum declaration.
+
+Methods for processing enums
+
+Suppose that we have to write a program with an enum that displays three possible user statuses. Let's create an enum UserStatus with these statuses:
+
+public enum UserStatus {
+    PENDING, ACTIVE, BLOCKED
+}
+
+And now we initialize a variable of the type UserStatus from the previous example:
+UserStatus active = UserStatus.ACTIVE;
+
+Each enum value has a name that can be accessed by using the method name():
+System.out.println(active.name()); // ACTIVE
+
+Sometimes, we may need to access an enumeration instance by its name. This can be done with the valueOf() method which provides us with another way to initialize a variable:
+UserStatus blocked = UserStatus.valueOf("BLOCKED"); // BLOCKED
+
+
+An important thing to remember about this method is that it is case-sensitive. That means that if the given string doesn't exactly match any constant, we will get an IllegalArgumentException.
+
+UserStatus blocked = UserStatus.valueOf("blocked"); // IllegalArgumentException
+
+Another method called ordinal() returns the ordinal position of an instance of an enum:
+
+System.out.println(active.ordinal()); // 1 (starting with 0)
+System.out.println(UserStatus.BLOCKED.ordinal()); // 2
+
+Although an enum is a reference type, two variables can be correctly compared by using both the equals method and the operator ==.
+
+System.out.println(active.equals(UserStatus.ACTIVE)); // true
+System.out.println(active == UserStatus.ACTIVE); // true

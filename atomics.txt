@@ -1,0 +1,91 @@
+Atomics :
+
+Using atomic variables, you can carry out thread-safe operations without explicit synchronization. An atomic operation is an operation that is performed as a single, indivisible unit of work. A thread gets a lock on an atomic variable when it performs an operation to prevent concurrent modification by other threads. This ensures that the atomic variable's value is always accurate and consistent.
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class GoodCounter {
+    private AtomicInteger count = new AtomicInteger(0);
+
+    public void increment() {
+        count.incrementAndGet();
+    }
+
+    public int getCount() {
+        return count.get();
+    }
+}
+
+
+The Java java.util.concurrent.atomic package provides a set of classes that implement atomic operations on variables of various types. These classes are:
+
+* AtomicBoolean: provides atomic operations on a boolean value.
+* AtomicInteger: provides atomic operations on an int value.
+* AtomicLong: provides atomic operations on a long value.
+* AtomicReference: provides atomic operations on an object reference.
+
+
+* get() returns the current value of the AtomicInteger.
+// create an AtomicInteger with an initial value of 0
+AtomicInteger atomicInt = new AtomicInteger(0);
+
+// get the current value of the AtomicInteger
+int currentValue = atomicInt.get();
+
+System.out.println(currentValue); // = 0
+* getAndAdd(int delta) adds delta to the current value of the AtomicInteger and returns the old value.
+int oldValue = atomicInt.getAndAdd(10);
+
+System.out.println(atomicInt); // = 10
+System.out.println(oldValue); // = 0
+* getAndDecrement() decrements the current value of the AtomicInteger by 1 and returns the old value.
+oldValue = atomicInt.getAndDecrement();
+
+System.out.println(atomicInt); // = 9
+System.out.println(oldValue); // = 10
+* getAndIncrement() increments the current value of the AtomicInteger by 1 and returns the old value.
+oldValue = atomicInt.getAndIncrement();
+
+System.out.println(atomicInt); // = 10
+System.out.println(oldValue); // = 9
+* getAndSet(int newValue) sets the AtomicInteger to newValue and returns the old value.
+oldValue = atomicInt.getAndSet(42);
+
+System.out.println(atomicInt); // = 42
+System.out.println(oldValue); // = 10
+* addAndGet(int delta) adds delta to the current value of the AtomicInteger and returns the new value.
+int newValue = atomicInt.addAndGet(5);
+
+System.out.println(atomicInt); // = 47
+System.out.println(newValue); // = 47
+* 
+* decrementAndGet() decrements the current value of the AtomicInteger by 1 and returns the new value.
+newValue = atomicInt.decrementAndGet();
+
+System.out.println(newValue); // = 46
+* incrementAndGet() increments the current value of the AtomicInteger by 1 and returns the new value
+newValue = atomicInt.incrementAndGet();
+
+System.out.println(newValue); // = 47
+* compareAndSet(int expect, int update) atomically sets the value to update if the current value is equal to expect.
+boolean success = atomicInt.compareAndSet(10, 20);
+
+System.out.println(atomicInt); // = 47
+System.out.println(success); // = false
+
+* weakCompareAndSet(int expect, int update) atomically sets the value to update if the current value is equal to expect.The main difference between compareAndSet() and weakCompareAndSet() is in their memory semantics. The compareAndSet() method provides a strong memory consistency guarantee, meaning that any changes made by one thread before calling it will be visible to any later calls to it by other threads. On the other hand, weakCompareAndSet() guarantees less memory consistency. It only ensures that modifications made by one thread before the call to weakCompareAndSet() are visible to subsequent calls to weakCompareAndSet() by the same thread. This approach makes no promises about the visibility of modifications made by other threads.
+
+* set(int newValue) sets the value to newValue.
+atomicInt.set(50);
+
+System.out.println(atomicInt); // = 50
+
+* lazySet(int newValue): the value is eventually updated to newValue, but this does not guarantee that any thread executing get() will see the new value. The order of operations may also be changed. This absence of ordering guarantees might result in certain performance advantages. The operation can be done more rapidly and with less overhead than other atomic operations that offer ordering guarantees since there is no need to synchronize with other threads.
+
+Optimistic vs. pessimistic locking
+
+The compareAndSet(expectedValue, newValue) method mentioned above can be used in a pattern known as optimistic locking. In this pattern, several threads can access and alter a shared resource concurrently, without requiring a full lock or blocking other threads.
+
+In contrast, pessimistic locking is when a thread obtains a full lock on a shared resource before accessing or altering it. Pessimistic locking is more costly and can cause contention and blocking of other threads, but it gives better consistency guarantees and may be more appropriate in some instances.
+
+In terms of performance, optimistic locking is generally faster and more scalable than pessimistic locking since it avoids the overhead of acquiring and releasing locks. Nevertheless, optimistic locking might cause conflicts and retries, slowing down the system's overall throughput if the conflict rate is significant.

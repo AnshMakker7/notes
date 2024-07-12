@@ -1,0 +1,21 @@
+JDBC Prepared Statements :
+
+
+What is a Prepared Statement?
+
+We have already observed JDBC statements and how to use them to interact with the database. However, as you could've noticed, the JDBC Statement interface is not so flexible. Since you have to specify each statement as a string, there is no way to set statement parameters such as a record id or a column value. Another disadvantage of the Statement interface is that each time you execute it, the database compiles the SQL statement without caching it. It leads to an execution time increase.
+
+To cope with such problems, JDBC API provides a special type of statement that is called a prepared statement, represented by the java.sql.PreparedStatement interface. Similarly to the statements, prepared statements can create, select, update, and delete database data. However, prepared statements have several advantages.
+
+Example :
+
+String insert = "INSERT INTO artists (name, origin, songs_number) VALUES (?, ?, ?)";
+
+try (PreparedStatement preparedStatement = con.prepareStatement(insert)) {
+    preparedStatement.setString(1, "The Beatles");
+    preparedStatement.setString(2, "Liverpool, England");
+    preparedStatement.setInt(3, 213);
+
+    preparedStatement.executeUpdate();
+}
+To create a PreparedStatement object, we used the prepareStatement(String sql) method of the Connection object. Note, how the value of the insert variable that we passed as a parameter to the prepareStatement method contains the question mark (?) symbols. Such symbols are placeholders for the values that will be passed to the query. The first placeholder corresponds to the name of the artist, the second one to its origin, and the third one to the number of the artist's songs.

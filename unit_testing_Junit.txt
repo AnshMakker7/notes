@@ -1,0 +1,56 @@
+Unit testing with JUnit :
+
+Note that we use unit tests to test our application without its external dependencies such as databases, web services, and so on, which falls into the responsibility of integration tests.
+
+
+Now you are ready to write your first test. Let's create a class in our project's test/java folder and name it CalculatorTests. You may do it manually or, if you are using IntelliJ IDEA, you may right-click on the class name and select Generate... and then Test... in the drop-down menu to let the IDE create the test class for you.
+Inside the class, add a new method testAddition and annotate it with @Test. This annotation tells the JUnit framework that the method is a unit test method. 
+
+Note, that in JUnit5 you don't need the test class or any of the test methods to be public to work properly, so they may be package-private.
+
+class CalculatorTests {
+
+    @Test
+    void testAddition() {
+        Calculator calculator = new Calculator();
+        int result = calculator.add(1, 2);
+
+        assertEquals(3, result);
+    }
+}
+Inside the test method, we declared an instance of our Calculator class and calculated a result of the execution of its add method with arguments 1 and 2. After that we check if the expected result is equal to the actual result, using the assertEquals method. It compares the expected value (first argument) and the actual value (second argument) and throws AssertionFailedError if they are not equal.
+
+It's a good idea to give your test classes and methods meaningful and descriptive names. If you don't like to use long and hard to read names, you may use @DisplayName annotation to declare custom names that will be shown in the test's output:
+
+@Test
+@DisplayName("Add 1 and 2, result should be 3")
+void testAddition() {
+    Calculator calculator = new Calculator();
+    int result = calculator.add(1, 2);
+
+    assertEquals(3, result);
+}
+
+
+Assertions
+The Assertions class of JUnit framework has a lot of overloaded assertion methods that allow you to test different conditions. Here are some useful assertions:
+assertEquals	tests if the arguments are equal
+assertTrue	tests if the argument is true
+assertFalse	tests if the argument is false
+assertNull	tests if the argument is null
+assertNotNull	tests if the argument is not null
+assertThrows	tests if the argument throws a certain exception
+
+Running tests :
+
+Now we have a few unit tests which we may run. You may run unit tests by opening the CalculatorTests file and click the green Run button in the gutter or by right-clicking on this file in the project view panel and selecting Run 'CalculatorTests' in the drop-down menu.
+Another way to run the tests is to run them using Gradle. First, let's add the following lines to the build.gradle file so we can see more detailed output for executed tests:
+test {
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+After that, run the following command in the terminal in the project root directory:
+
+./gradlew test

@@ -1,0 +1,43 @@
+Frameworks :
+
+A framework is a universal, reusable piece of software that facilitates the development of typical applications or their parts. It consists of structured code templates and provides generic functionality which can be easily extended for the needs of a specific application.
+
+Frameworks vs libraries
+
+At first glance, it might seem like frameworks and libraries are very similar, but it's not quite true.
+Applications that use frameworks are built on top of them and extend their code to get specific functionality. In a sense, a framework serves as the skeleton of an application or its parts and sets "the rules of the game". A library, on the other hand, only provides some specific operations without having such a global influence. This is the key difference between frameworks and libraries. However, libraries can be provided as parts of frameworks.
+Of course, there's no escape from evident similarities between frameworks and libraries. The programmer who uses a framework does not modify its source code, acting only as its user.
+
+
+Inversion of Control
+
+The most common principle that comes with frameworks is Inversion of Control (IoC).
+In a framework, unlike in libraries or standard user applications, the overall program's flow of control is dictated not by the caller but by the framework. It means the framework calls your code, and not vice versa:
+
+https://ucarecdn.com/4636ed85-f9b9-4a56-96d7-ff07909495af/
+
+
+This happens because a framework provides templates for solving possible tasks and the interaction between the templates has been defined by developers of the framework. The user of a framework just takes the templates and extends them with application-specific code.
+
+Advantages and disadvantages
+
+Time to weigh everything. To start on a positive note, the use of frameworks has a number of strong advantages:
+
+* Rapid prototyping and development;
+* Standardization of project structures: it is easier to understand similar projects with the same structure;
+* Wide use in companies around the world;
+* Bug fixes and security updates by the authors;
+* A well-designed skeleton: as a rule, frameworks use up-to-date practices and patterns to provide a firm skeleton for applications.
+
+Despite the advantages, there are a number of common drawbacks:
+
+* Selecting an unsuitable framework can make an application harder to implement;
+* Application slowdown: frameworks often do a lot of heavyweight things hidden from programmers;
+* It is difficult to replace a no longer suitable framework with another one while libraries can be easily replaced;
+* You may encounter a bug in the framework which may affect your work.
+This might not be a complete list of advantages and disadvantages, but as you'll be getting more practice with using frameworks, you'll discover them for yourself.
+ How to choose frameworks
+
+Here is some general advice for choosing a suitable framework:
+* Pay attention to well-known frameworks with good documentation. This will greatly simplify the use and allow you to easily find developers already familiar with this framework. Some popular frameworks even become a de facto standard for developing specific types of applications. Such frameworks should be considered first.
+* If you write a small application that will most probably never change, you can develop it without frameworks. Moreover, for such an application they can introduce unnecessary additional complexity. But you may also consider the use of the so-called lightweight frameworks or choose a framework only for some part(s) of your application.

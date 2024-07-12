@@ -1,0 +1,35 @@
+Connecting to a database with JDBC :
+
+Java DataBase Connectivity (JDBC) is a Java API that was designed to access data stored in relational databases.By using JDBC, you can establish a connection to a database, execute SQL statements, and handle the results received from the database in answer to your query.
+
+If JDBC API provides interfaces for connecting Java application to relational databases, JDBC drivers implement those interfaces for the concrete database management system (DBMS).
+
+Establishing a connection
+
+To establish a connection between your application and the database, you need an object instantiated by a class that implements the DataSource interface. As we've mentioned, JDBC drivers provide an implementation for JDBC API interfaces, so the DataSource interface is implemented by a driver vendor and represents a particular DBMS.
+
+Before connection is established, we need to specify a database URL. The database URL is a string that contains information about the database, including the name of the database, path to the database, configuration properties, etc.
+
+Finally, we need to call the DataSource.getConnection method. It returns a Connection object that represents a connection with the database. Once the connection is established you can interact with the database.
+
+The next step is to add SQLite JDBC Driver to the application. For that, we can use Gradle and add the following dependency to the build.gradle file:
+
+Example :
+
+public class CoolJDBC {
+    public static void main(String[] args) {
+        String url = "jdbc:sqlite:path-to-database";
+
+        SQLiteDataSource dataSource = new SQLiteDataSource();
+        dataSource.setUrl(url);
+
+        try (Connection con = dataSource.getConnection()) {
+            if (con.isValid(5)) {
+                System.out.println("Connection is valid.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+As you can notice, inside the try-catch block we call the isValid method of the Connection object with "5" as a parameter. isValid method checks if the connection has not been closed and is still valid while waiting for the specified number of seconds to validate the connection. If the URL is correct, our application console output will contain a "Connection is valid." statement.

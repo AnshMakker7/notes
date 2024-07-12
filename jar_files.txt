@@ -1,0 +1,48 @@
+JAR Files :
+
+A Java Archive (JAR) is a platform-independent file format to pack multiple files together and distribute them as a single unit.
+
+
+
+These are the main benefits of a JAR file:
+
+* it can aggregate multiple files of different types;
+* it is a compressed archive (with a ZIP algorithm) that reduces the size of the application and makes it easier to move it over a network;
+* you can digitally sign it (this feature won't be discussed in this topic).
+
+
+A JAR file is simply an aggregation of bytecode files (.class), configuration files (e.g., .json, .xml), images, and even sound clips into a single compressed file. All files except bytecode files are usually called resources.
+
+It is also recommended that a JAR file contains a special file named MANIFEST.MF in a special folder named META-INF.
+
+example.jar
+├── META-INF
+│   └── MANIFEST.MF
+├── second
+│   ├── Main.class
+│   └── MyIcon.png
+└── third
+    └── another
+        └── OneMore.class
+
+
+The manifest file has a set of headers. The name and the value are separated by a colon (:). Take a look at a small example below:
+
+Manifest-Version: 1.0
+Created-By: 9.0.1 (Oracle Corporation)
+Main-Class: second.Main
+
+******* It's important to remember that the last line of the manifest file should end with a new line or a carriage return, or it will not be parsed properly.
+
+
+Running a JAR file
+
+There are two ways to run a JAR file, depending on whether you want to use the Main-Class header in the manifest file or not.
+
+* if this header is not present or you want to specify the main class manually, run:
+
+										java -cp app-without-main-class-header.jar path.to.Main
+* if this header is present, then run:
+
+										java -jar app-with-main-class-header.jar
+

@@ -1,0 +1,88 @@
+Builder Pattern :
+
+Builder pattern is a creational design pattern that allows you to create objects step by step. This approach allows creating fundamentally the same objects using one constructor, but they can be modified to depict different types of objects. The main goal of the builder pattern is to separate the construction of a complex object from its representation so that the same construction process can create different representations.
+
+https://ucarecdn.com/e74153bf-0a6b-485e-9866-dad97faff5ad/
+
+
+The builder pattern has the following components:
+* Builder interface describes the steps of product construction. Each complex object requires the service of a Builder class to generate object instances.
+* ConcreteBuilder implements Builder to make the required representation of the product. It will construct and assemble the parts of the final product and provide the interface to retrieve it. This is the main component that keeps track of the specific representation of the product.
+* Director manages the object creation process using the Builder class, and it will not directly create and assemble the final complex object.
+* Product is the complex object constructed using the concrete builder class which contains the final user-requested representation.
+
+
+Builder class example
+Let's try to depict this pattern in form of pseudocode. First, we define our builder interface, which will be called Dish:
+interface Dish is
+  method serve()
+  method fry()
+  method stew()
+  method addIngredient()
+  method addSalt()
+  method addPepper()
+  method addSpice()
+  method addOil()
+Now let's specify builders for some dishes. Here's an example for a fried dish:
+class FriedDish implements Dish is
+  method addIngredient() is
+    ...
+
+  method addOil() is
+    ...
+
+  method addSalt() is
+    ...
+
+  method addPepper() is
+    ...
+
+  method fry() is
+    ...
+ 
+  method serve() is
+    ...
+Here we just need to add some ingredient, oil, salt, pepper and fry it.
+And now let's describe the builder for a stewed dish. In this builder we'll need to add ingredient and stew it:
+class StewDish implements Dish is
+  method addIngredient() is
+    ...
+
+  method addSpice() is
+    ...
+
+  method addPepper() is
+    ...
+
+  method stew() is
+    ...
+ 
+  method serve() is
+    ...
+Builder implementation
+To use our builder class, we will define our director class that will allow us to stew or fry a dish:
+class Director is
+  method fry(Dish dish) is
+   dish.addIngredient()
+   dish.addOil()
+   dish.addSalt()
+   dish.addPepper()
+   dish.fry()
+   dish.serve()
+
+  method stew(Dish dish) is
+   dish.addIngredient()
+   dish.addSpice()
+   dish.addPepper()
+   dish.stew()
+   dish.serve()
+    
+Now we will use these builders to create our dishes:
+method makeDish() is
+  Director director = new Director()
+
+  StewDish stewedChicken = new StewDish()
+  director.stew(stewedChicken)
+
+  FriedDish friedChicken = new FriedDish()
+  director.fry(friedChicken)

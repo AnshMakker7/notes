@@ -1,0 +1,34 @@
+Basic Project with Gradle :
+
+The key concepts of Gradle
+
+Let's start with an introduction to the key concepts in Gradle: projects and tasks.
+* A project might represent either something to be built (e.g. a JAR file or ZIP archive) or a thing to do (e.g. deploying the application). Every Gradle build contains one or more projects.
+* A task is a single piece of work that a build performs. This can include compiling classes, running tests, generating docs, and so on. Every project is essentially a collection of one or several tasks
+
+https://ucarecdn.com/2ad089d5-37be-4d25-af1e-b26138a4af76/
+
+Steps :
+ 
+. Create a new directory to store files of your project and go to it.
+
+mkdir gradle-demo
+cd gradle-demo
+
+
+. Invoke the gradle init command to generate a simple project. Modern versions of Gradle will ask you to fill several parameters in a dialogue form. To get acquainted with the process just choose basic as the type of project and Groovy as the build script DSL.
+
+.
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+└── settings.gradle
+
+Here is brief info about all the generated files:
+* The build.gradle file is a primary file that specifies the Gradle's project, including its tasks and external libraries. Here, it is located in the gradle-demo folder and can be created after invoking the gradle init command. For now, this file doesn't contain anything useful, but in real projects it is often updated with new information.
+* The files gradle-wrapper.jar, gradle-wrapper.properties, gradlew and gradlew.bat belong to Gradle Wrapper which allows you to run Gradle without its manual installation.
+* The settings.gradle file specifies which projects to include in your build. This file is optional for a build that has only one project, but it is mandatory for a multi-project build.

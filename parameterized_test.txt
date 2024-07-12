@@ -1,0 +1,113 @@
+Parameterized test :
+
+@ParameterizedTest
+
+@ParameterizedTest allows us to invoke a single test method multiple times, passing different arguments to it. Look at the following code snippet:
+
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CalculatorTests {
+    
+    @ParameterizedTest
+    @CsvSource({"2, 1, 2", "1, 2, 2", "1, 1, 1"})
+    void testMax(int first, int second, int expected) {
+        Calculator calculator = new Calculator();
+        int result = calculator.maxOf(first, second);
+
+        assertEquals(expected, result);
+    }
+}
+
+
+@ParameterizedTest(name = "{index} => maxOf({0}, {1}) == {2}")
+@CsvSource({"2, 1, 2", "1, 2, 2", "1, 1, 1"})
+    void testMax(int first, int second, int expected) {
+        Calculator calculator = new Calculator();
+        int result = calculator.maxOf(first, second);
+
+        assertEquals(expected, result);
+    }
+
+
+The execution of the same test with such a custom display name looks as follows:
+
+CalculatorTests > 1 => maxOf(2, 1) == 2 PASSED
+CalculatorTests > 2 => maxOf(1, 2) == 2 PASSED
+CalculatorTests > 3 => maxOf(1, 1) == 1 PASSED
+
+
+@ValueSource
+
+@ValueSource is an argument source that supplies an array of literal values for test methods with a single parameter. Such literal values may be of any of the following types: short, byte, int, long, float, double, char, boolean, java.lang.String, and java.lang.Class.
+Let us add another method to our Calculator class, which will accept a single int argument and return boolean:
+public boolean isEven(int a) {
+    return a % 2 == 0;
+}
+After that, we will use the following test method that will be invoked multiple times with different integer arguments supplied by @ValueSource:
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CalculatorTests {
+    
+    @ParameterizedTest
+    @ValueSource(ints = { 0, 2, 4, 1000 })
+    void testIsEven(int arg) {
+        assertTrue(new Calculator().isEven(arg));
+    }
+}
+For non-primitive types, you can use @EmptySource, @NullSource or @NullAndEmptySource annotations to pass null and empty values. In order to avoid writing too much code, we will be using more abstract examples to illustrate how to pass different types of arguments to test methods. In the following code snippets, an empty arg array is passed to the testMethod(int[] arg) method, and the testNullAndEmpty(List<String> arg) method is invoked twice: the first time arg is null, and the second time arg is empty.
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CalculatorTests {
+
+    @ParameterizedTest
+    @EmptySource
+    void testEmpty(int[] arg) {
+        assertEquals(0, arg.length);
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testNullAndEmpty(List<String> arg) {
+        assertTrue(arg == null || arg.isEmpty());
+    }
+}
+You can even combine these annotations with @ValueSource values to check the whole range of test cases in a single test method.
+
+@MethodSource
+
+This annotation allows you to use a method of your test class or an external class as a source of arguments. Each such method must satisfy the following requirements: it must be static, it must not accept any arguments, and must return a stream (see this topic for details), an array, or a collection of arguments.
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CalculatorTests {
+
+    @ParameterizedTest
+    @MethodSource("stringFactory")
+    void testStrings(String str) {
+        assertFalse(str.isEmpty());
+    }
+
+    static List<String> stringFactory() {
+        return List.of("apple", "banana", "lemon", "orange");
+    }
+}
+
+
+

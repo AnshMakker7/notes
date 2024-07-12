@@ -1,0 +1,22 @@
+Functional Testing :
+
+What is functional testing?
+
+Functional testing checks if the output satisfies some specific requirements or not. Its main task is to confirm that the functionality of an application or system behaves as expected.
+
+Unit testing
+The most basic type of testing is unit testing. It requires writing tests for every non-trivial function or method. With it, you can quickly check whether the latest change in the code has led to some new errors in the already tested parts of the program; it also facilitates the detection and elimination of such errors. The goal of unit testing is to isolate individual parts of a program and show that each of these parts work.
+
+
+Integration testing
+All complex applications are integrated with some other parts, such as databases, file systems, etc. Thus, it turns out that developers also need to test how these parts will all work together. This is what integration tests are for.
+
+End-to-end testing
+After integration tests, one can check the entire system from start to end. This is called end-to-end testing.
+End-to-end testing is a software testing methodology to entirely test an application flow. The purpose of end-to-end testing is to simulate the real user scenario and validate the system that is being tested, as well as its components, for integration and data integrity.
+
+Beta or Acceptance testing is carried out at the very end when the raw or beta version of the product is ready. Beta testing is the intensive use of a near-finished version of a product in order to identify as many bugs as possible before the product is finally released to the market. It does not require developers like in all previous testing methods, but volunteers who will use the product for a while and point out its shortcomings.
+
+Smoke testing is a testing technique that is inspired by hardware testing, which checks for the smoke from the hardware components once the hardware's power is switched on. Smoke Testing means a minimal set of tests to find some obvious errors. Smoke testing is executed to verify that critical functional parts are performing as expected and the whole system is stable. It makes no sense to send a program that has not passed this test for deeper testing.
+
+Regression testing is often done after a smoke test and some code changes. Its goal is to confirm that these changes have not negatively impacted the existing functionality/feature set. Regression test cases can be obtained from functional requirements or specifications, user manuals, and are carried out regardless of what the developers have fixed.

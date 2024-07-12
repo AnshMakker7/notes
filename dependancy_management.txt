@@ -1,0 +1,28 @@
+Dependancy Management :
+
+In Gradle terminology, all external libraries are called dependencies. As a rule, they are packaged in JAR files. Gradle can automatically download them and add them to the project. It saves a lot of time and solves possible conflicts between versions of libraries.
+
+ To add an external library to a project, you need to do exactly two steps:
+
+1. Define a repository where to search for dependencies.
+2. Define a dependency that you want to include in your project.
+
+
+Gradle has four aliases that you can use when adding Maven compatible repositories to the project.
+* mavenCentral(): fetches dependencies from the Maven Central Repository.
+* mavenLocal(): fetches dependencies from the local Maven repository.
+* google(): fetches dependencies from Google Maven repository.
+
+Defining a repository in Gradle is a piece of cake. Just add this to your build.gradle file:
+
+repositories {
+    mavenCentral()
+}
+Also, you can just download the jars you need and place them into some directory on your computer, commonly in the libs folder of your project. This comes in handy when the jars you need are not available in public repositories.
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+https://ucarecdn.com/8db83b02-505f-478c-a2a9-ba2a753c26c5/
